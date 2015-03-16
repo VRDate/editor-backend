@@ -33,18 +33,18 @@ import org.asciidoctor.editor.realtime.messages.NotificationMessage;
 import org.asciidoctor.editor.realtime.messages.TypeMessage;
 
 /**
- * WSMAD : When WebSocket met Asciidoctor !
+ * editor-backend
  * 
  * @author greau.maxime@gmail.com
  * 
  */
-@ServerEndpoint(value = "/adoc/{adoc-id}", 
+@ServerEndpoint(value = "/backend/{adoc-id}",
 				decoders = { MessageDecoder.class },
 				encoders = { AsciidocMessageEncoder.class, OutputMessageEncoder.class,
 							NotificationMessageEncoder.class })
 public class BackendServerEndpoint {
 
-	private static final Logger logger = Logger.getLogger("WSMADEndpoint");
+	private static final Logger logger = Logger.getLogger("BackendServerEndpoint");
 
 	/** All open WebSocket sessions */
 	static Set<Session> peers = Collections
