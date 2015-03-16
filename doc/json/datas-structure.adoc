@@ -1,0 +1,123 @@
+= Datas structure
+:source-highlighter: coderay
+
+
+== Projects
+
+[source,json]
+.projects-datas.json
+----
+{
+   "projects" : {
+     "project:<ID>" : {
+       "id" : "project:<ID>",
+       "name" : "My AsciiDoc project",
+       "owner" : "github:501525",
+       "users" : {
+         "github:501525" : "mgreau"
+       },
+       "settings" : {
+           "backup_auto" : "true",
+           "html_url" : "http://hosting.adoc-editor.io/project:<uuid>/html/",
+           "pdf_url" : "http://hosting.adoc-editor.io/project:<uuid>/pdf/",
+           "asciidoctor" : {
+                ":copyright:" : "CC BY-SA 2.0",
+                ":imagesdir:" : "images",
+                ":doctype:" : "book",
+                ":docinfo:" : "",
+                ":toc:" : "",
+                ":toclevels:" : "2",
+                ":source-highlighter:" : "highlightjs"
+           }
+       },
+       "files" : {
+         "file:<ID>" : {
+           "asciidoc" : "[preface]\n== Preface\n\nThis is a file to test the app. +\nfrom my mobile !\n\n=== Title 3\n\nOk commit ?\n\nTests backend listener\n\n\n\nq",
+           "github" : {
+             "path" : "ch_preface.asciidoc",
+             "repo" : "wfly-bk",
+             "sha" : "46684740d61ed2cea5556cf0f4c9e7e802c0b780"
+           },
+           "id" : "file:<ID>",
+           "name" : "ch_preface.asciidoc",
+           "provider" : "github",
+           "comments" : {
+                "comment-<ID>" : {
+                     "asciidoc" : "comment 1",
+                     "approved" : "false",
+                     "lines" : "75-80",
+                     "users" : {
+                        "github:501525" : "mgreau"
+                     }
+                }
+		   },
+           "revisions" : {
+                "revision-<ID>" : {
+                   "asciidoc" : "[preface]\n== Preface\n\nThis is a file..",
+                     "label" : "1.0",
+                     "timestamp" : 454545,
+                     "users" : {
+                        "github:501525" : "mgreau"
+                     }
+                 "revision-<ID>" : {
+                     "asciidoc" : "[preface]\n== Preface\n\nThis is a file..",
+                     "label" : "1.0",
+                     "timestamp" : 454545,
+                     "users" : {
+                        "github:501525" : "mgreau"
+                     }
+                }
+           }
+         },
+         "file:<ID>" : {
+           "asciidoc" : " ",
+           "id" : "file:<ID>",
+           "name" : "my-sample.adoc"
+         },
+         "file:<ID>" : {
+           "asciidoc" : "= adoc-editor.io\nMaxime GREAU <https://github.com/mgreau[@mgreau]>\n\nimport from github and commIt !\nOK\n",
+           "github" : {
+             "path" : "README.adoc",
+             "repo" : "adoc-editor.io",
+             "sha" : "94786ad3ed31f6860b9eaf2a149605edd6fd7a5f"
+           },
+           "id" : "file:<ID>",
+           "name" : "README.adoc",
+           "provider" : "github"
+         }
+       }
+     }
+}
+----
+
+
+[source,json]
+.users-datas.json
+----
+ "users" : {
+    "github:501525" : {
+      "auth" : {
+        "provider" : "github",
+        "uid" : "github:501525"
+      },
+      "expires" : 1418484778,
+      "github" : {
+        "accessToken" : "....",
+         "url" : "https://api.github.com/users/mgreau"
+        },
+        "email" : "greaustephanie@gmail.com",
+        "id" : "501525",
+        "username" : "mgreau"
+      },
+      "projects" : {
+        "project:<ID>" : {
+          "id" : "project:<ID>",
+          "name" : "My AsciiDoc project",
+          "owner" : true
+        }
+      },
+      "provider" : "github",
+      "token" : "...",
+      "uid" : "github:501525"
+    },
+----
