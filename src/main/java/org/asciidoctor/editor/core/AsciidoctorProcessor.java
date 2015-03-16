@@ -12,6 +12,8 @@ import javax.ejb.Stateless;
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
 
+import org.apache.deltaspike.core.api.config.ConfigProperty;
+import org.asciidoctor.editor.configuration.BackendConfiguration;
 import org.asciidoctor.editor.core.extension.iframe.IFrameAnchorPostProcessor;
 import org.asciidoctor.editor.core.extension.slides.DZSlidesPostProcessor;
 import org.asciidoctor.editor.core.extension.slides.DZSlidesUtils;
@@ -40,13 +42,13 @@ public class AsciidoctorProcessor {
     @Inject
 	private Asciidoctor asciidoctor ;
 
+    @Inject
+    @ConfigProperty(name = BackendConfiguration.KEY_OUTPUT_DIR)
     private String outputDir;
 
 	@PostConstruct
 	public void init() {
 
-		//asciidoctor = Asciidoctor.Factory.create();
-        outputDir = "/opt/jboss/wildfly/standalone/data/";//System.getenv("JBOSS_HOME");
 	}
 
     /**
