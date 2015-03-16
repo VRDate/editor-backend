@@ -1,0 +1,20 @@
+
+#Backend Java
+target/
+*.jar
+*.war
+
+
+#IDE files
+*web.iml
+*.idea
+repositories/
+.tmp
+.settings/
+*.project
+*.classpath
+.factorypath
+*~
+
+#OS
+.DS_Store
