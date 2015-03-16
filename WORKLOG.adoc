@@ -1,0 +1,7 @@
+= WORKLOG
+
+== TODO
+
+* Upgrade to Java 8
+* Update code in order to add Atmopshere Framework
+
