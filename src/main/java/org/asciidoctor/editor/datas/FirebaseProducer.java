@@ -1,17 +1,15 @@
 package org.asciidoctor.editor.datas;
 
+import com.firebase.client.AuthData;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import org.apache.deltaspike.core.api.config.ConfigProperty;
+import org.asciidoctor.editor.configuration.BackendConfiguration;
+
 import javax.enterprise.context.ApplicationScoped;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
-
-import com.firebase.client.AuthData;
-import com.firebase.client.FirebaseError;
-import org.apache.deltaspike.core.api.config.ConfigProperty;
-import org.asciidoctor.editor.StarterService;
-
-import com.firebase.client.Firebase;
-import org.asciidoctor.editor.configuration.BackendConfiguration;
-
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @ApplicationScoped
@@ -35,7 +33,7 @@ public class FirebaseProducer {
         ref.authWithCustomToken(FIREBASE_SECRET, new Firebase.AuthResultHandler() {
             @Override
             public void onAuthenticationError(FirebaseError error) {
-                logger.info("[FIREBASE][ERROR] Login Failed! " + error.getMessage());
+                logger.log(Level.SEVERE, "[FIREBASE][ERROR] Login Failed! " + error.getMessage());
             }
 
             @Override
