@@ -1,3 +1,8 @@
 = editor-backend
 
 Backend : convert AsciiDoc to HTML5, PDF, EPUB3...
+
+
+== How to test it ?
+
+  docker run  -p 8080:8080 -p 9990:9990 -e "editor.backend.firebase.secret=<SECRET>" -it <IMAGE_ID>
