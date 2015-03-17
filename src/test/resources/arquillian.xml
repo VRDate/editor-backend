@@ -10,47 +10,27 @@
         <property name="autoStartContainers">${arquillian.cube.autostart}</property>
         <property name="shouldAllowToConnectToRunningContainers">true</property>
         <property name="dockerContainers">
-            wildfly82_dockerfile:
-               buildImage:
-                 dockerfileLocation: dockerfiles/wildfly82
-                 noCache: true
-                 remove: true
-               exposedPorts: [8080/tcp, 9990/tcp]
+            backend:
+            image: asciidoctor/asciidoctorj-wildfly:latest
                await:
                  strategy: polling
                  sleepPollingTime: 50000
                  iterations: 5
                beforeStop:
-                 - copy:
-                 from: /tmp/documents
-                 to: /tmp
-               portBindings: [8081->8080/tcp, 9991->9990/tcp]
-            wildfly82:
-               image: asciidoctor/asciidoctorj-wildfly:latest
-               await:
-                 strategy: polling
-                 sleepPollingTime: 50000
-               iterations: 5
-                 beforeStop:
                    - copy:
-                   from: /tmp/documents
-                   to: /tmp
+            from: /tmp/documents
+            to: /var/tmp
+            env: [editor.backend.firebase.secret=SECRET]
                portBindings: [8081->8080/tcp, 9991->9990/tcp]
         </property>
     </extension>
 
-    <container qualifier="wildfly82" default="true">
+    <container qualifier="backend" default="true">
         <configuration>
             <property name="managementAddress">dockerServerIp</property>
             <property name="username">admin</property>
             <property name="password">Admin#70365</property>
         </configuration>
     </container>
-    <container qualifier="wildfly82_dockerfile">
-        <configuration>
-            <property name="managementAddress">dockerServerIp</property>
-            <property name="username">admin</property>
-            <property name="password">Admin#70365</property>
-        </configuration>
-    </container>
+
 </arquillian>
