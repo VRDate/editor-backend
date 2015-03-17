@@ -5,4 +5,12 @@ Backend : convert AsciiDoc to HTML5, PDF, EPUB3...
 
 == How to test it ?
 
-  docker run  -p 8080:8080 -p 9990:9990 -e "editor.backend.firebase.secret=<SECRET>" -it <IMAGE_ID>
+. Start the container
+
+  docker run  -p 8080:8080 -p 9990:9990 -e "editor.backend.firebase.secret=<SECRET>" -it asciidoctor/asciidoctorj-wildfly
+
+. deploy the app
+
+. listen to a file with API REST
+
+  http://192.168.99.100:8080/editor-backend/api/project/project:123/file/file:123/listener
