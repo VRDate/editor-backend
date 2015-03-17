@@ -14,8 +14,13 @@ public final class BackendArchive {
                 .addPackages(true, StarterService.class.getPackage())
                 .addAsResource("adoc/sample.adoc")
                 .addAsResource("adoc/test.adoc")
+                .addAsResource("config/editor-backend.properties", "editor-backend.properties")
                 .addAsManifestResource("config/MANIFEST.MF", "MANIFEST.MF")
                 .addAsLibraries(Maven.resolver().loadPomFromFile("pom.xml").resolve("org.jsoup:jsoup").withTransitivity().asFile())
+                        //Firebase
+                .addAsLibraries(Maven.resolver().loadPomFromFile("pom.xml").resolve("com.firebase:firebase-client-jvm").withTransitivity().asFile())
+                        //DeltaSpike
+                .addAsLibraries(Maven.resolver().loadPomFromFile("pom.xml").resolve("org.apache.deltaspike.core:deltaspike-core-impl").withTransitivity().asFile())
                 .addAsWebInfResource("config/beans.xml", "beans.xml");
     }
 }
