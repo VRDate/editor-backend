@@ -1,6 +1,7 @@
 package org.asciidoctor.editor.realtime.messages;
 
 import org.asciidoctor.ast.DocumentHeader;
+import org.asciidoctor.editor.processor.Converter;
 
 /**
  * This message can be send by both peers (client/server) :
@@ -35,7 +36,7 @@ public class AsciidocMessage extends Message {
 	private String patchToApply;
 
 	/** Document format which is sent to peerŒ */
-	protected TypeFormat format;
+	protected Converter format;
 	
 	/** Action to do with this message : render, compute diff, patch **/
 	private String action;
@@ -47,13 +48,13 @@ public class AsciidocMessage extends Message {
 	}
 	
 	public AsciidocMessage(String currentWriter, String adocSource){
-		this.format = TypeFormat.asciidoc;
+		this.format = Converter.asciidoc;
 		this.currentWriter = currentWriter;
 		this.adocSource = adocSource;
 	}
-	
-	public AsciidocMessage(String currentWriter, String adocSource, TypeFormat format){
-		this.format = TypeFormat.asciidoc;
+
+	public AsciidocMessage(String currentWriter, String adocSource, Converter format) {
+		this.format = Converter.asciidoc;
 		if (format !=  null)
 			this.format = format;
 		this.currentWriter = currentWriter;
@@ -92,11 +93,11 @@ public class AsciidocMessage extends Message {
 		this.docHeader = docHeader;
 	}
 
-	public TypeFormat getFormat() {
+	public Converter getFormat() {
 		return format;
 	}
 
-	public void setFormat(TypeFormat format) {
+	public void setFormat(Converter format) {
 		this.format = format;
 	}
 

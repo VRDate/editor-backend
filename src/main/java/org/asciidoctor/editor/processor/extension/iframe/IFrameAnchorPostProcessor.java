@@ -1,11 +1,11 @@
-package org.asciidoctor.editor.core.extension.iframe;
-
-import java.util.Map;
+package org.asciidoctor.editor.processor.extension.iframe;
 
 import org.asciidoctor.ast.Document;
 import org.asciidoctor.extension.Postprocessor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
+
+import java.util.Map;
 
 /**
  * #12 : iframe : making linking between anchors work.
@@ -40,10 +40,5 @@ public class IFrameAnchorPostProcessor extends Postprocessor {
     	return output;
     }
 
-	//@Override
-	public String process(String output) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-    
+
 }

@@ -1,5 +1,7 @@
 package org.asciidoctor.editor.realtime.messages;
 
+import org.asciidoctor.editor.processor.Converter;
+
 /**
  * An OuputMessage is a result of :
  * 
@@ -16,8 +18,8 @@ public class OutputMessage extends AsciidocMessage {
 	
 	/** rendered by asciidoctor processor */
 	private String content;
-	
-	public OutputMessage(TypeFormat format){
+
+	public OutputMessage(Converter format) {
 		this.format = format;
 	}
 	

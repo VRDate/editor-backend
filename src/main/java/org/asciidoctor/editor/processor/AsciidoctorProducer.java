@@ -1,4 +1,4 @@
-package org.asciidoctor.editor.core;
+package org.asciidoctor.editor.processor;
 
 import org.asciidoctor.Asciidoctor;
 

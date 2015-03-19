@@ -1,9 +1,7 @@
 package org.asciidoctor.editor.realtime.decoders;
 
-import javax.inject.Inject;
-
 import org.asciidoctor.editor.StarterService;
-import org.asciidoctor.editor.core.AsciidoctorProcessor;
+import org.asciidoctor.editor.processor.AsciidoctorProcessor;
 import org.asciidoctor.editor.realtime.messages.AsciidocMessage;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -13,6 +11,8 @@ import org.jboss.shrinkwrap.api.spec.WebArchive;
 import org.jboss.shrinkwrap.resolver.api.maven.Maven;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import javax.inject.Inject;
 
 import static org.junit.Assert.*;
 

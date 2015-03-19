@@ -1,23 +1,4 @@
-package org.asciidoctor.editor.core;
-
-import static org.asciidoctor.OptionsBuilder.options;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertTrue;
-
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.Reader;
-import java.io.UnsupportedEncodingException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.util.Map;
-
-import javax.inject.Inject;
-import javax.websocket.DeploymentException;
+package org.asciidoctor.editor.processor;
 
 import org.asciidoctor.AttributesBuilder;
 import org.asciidoctor.SafeMode;
@@ -26,6 +7,16 @@ import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import javax.inject.Inject;
+import javax.websocket.DeploymentException;
+import java.io.*;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.Map;
+
+import static org.asciidoctor.OptionsBuilder.options;
+import static org.junit.Assert.*;
 
 @RunWith(Arquillian.class)
 public class AsciidoctorProcessorTest extends DeploymentInContainer {
@@ -78,7 +69,7 @@ public class AsciidoctorProcessorTest extends DeploymentInContainer {
         String inputFilename = "adoc/test.adoc";
         String outputFilename = "sample.pdf";
         byte[] res ;
-        res = asciidoctor.convertToBinaryDocument(getResourceAsString(inputFilename), "pdf", null, "all", outputFilename);
+        res = asciidoctor.convertToBinaryDocument(getResourceAsString(inputFilename), Converter.pdf, null, "all", outputFilename);
         assertTrue(res != null);
     }
 

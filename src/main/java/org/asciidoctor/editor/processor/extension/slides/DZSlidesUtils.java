@@ -1,4 +1,4 @@
-package org.asciidoctor.editor.core.extension.slides;
+package org.asciidoctor.editor.processor.extension.slides;
 
 /**
  * Created by mgreau on 04/01/15.

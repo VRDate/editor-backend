@@ -1,11 +1,11 @@
-package org.asciidoctor.editor.core.extension.slides;
-
-import java.util.Map;
+package org.asciidoctor.editor.processor.extension.slides;
 
 import org.asciidoctor.ast.Document;
 import org.asciidoctor.extension.Postprocessor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Element;
+
+import java.util.Map;
 
 /**
  * DZSlides headers for one slide.
@@ -56,11 +56,6 @@ public class DZSlidesPostProcessor extends Postprocessor {
        return output;
     }
 
-	//@Override
-	public String process(String output) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 
 
     

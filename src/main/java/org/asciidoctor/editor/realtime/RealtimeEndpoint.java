@@ -1,5 +1,23 @@
 package org.asciidoctor.editor.realtime;
 
+import org.asciidoctor.editor.core.qualifier.ComputeDiff;
+import org.asciidoctor.editor.core.qualifier.Patch;
+import org.asciidoctor.editor.processor.Backend;
+import org.asciidoctor.editor.realtime.decoders.MessageDecoder;
+import org.asciidoctor.editor.realtime.encoders.AsciidocMessageEncoder;
+import org.asciidoctor.editor.realtime.encoders.NotificationMessageEncoder;
+import org.asciidoctor.editor.realtime.encoders.OutputMessageEncoder;
+import org.asciidoctor.editor.realtime.messages.AsciidocMessage;
+import org.asciidoctor.editor.realtime.messages.Message;
+import org.asciidoctor.editor.realtime.messages.NotificationMessage;
+import org.asciidoctor.editor.realtime.messages.TypeMessage;
+import org.asciidoctor.editor.realtime.messages.events.AsciidocMessageEvent;
+
+import javax.enterprise.event.Event;
+import javax.inject.Inject;
+import javax.websocket.*;
+import javax.websocket.server.PathParam;
+import javax.websocket.server.ServerEndpoint;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
@@ -9,42 +27,19 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import javax.enterprise.event.Event;
-import javax.inject.Inject;
-import javax.websocket.OnClose;
-import javax.websocket.OnError;
-import javax.websocket.OnMessage;
-import javax.websocket.OnOpen;
-import javax.websocket.Session;
-import javax.websocket.server.PathParam;
-import javax.websocket.server.ServerEndpoint;
-
-import org.asciidoctor.editor.realtime.messages.events.AsciidocMessageEvent;
-import org.asciidoctor.editor.core.qualifier.Backend;
-import org.asciidoctor.editor.core.qualifier.ComputeDiff;
-import org.asciidoctor.editor.core.qualifier.Patch;
-import org.asciidoctor.editor.realtime.decoders.MessageDecoder;
-import org.asciidoctor.editor.realtime.encoders.AsciidocMessageEncoder;
-import org.asciidoctor.editor.realtime.encoders.NotificationMessageEncoder;
-import org.asciidoctor.editor.realtime.encoders.OutputMessageEncoder;
-import org.asciidoctor.editor.realtime.messages.AsciidocMessage;
-import org.asciidoctor.editor.realtime.messages.Message;
-import org.asciidoctor.editor.realtime.messages.NotificationMessage;
-import org.asciidoctor.editor.realtime.messages.TypeMessage;
-
 /**
  * editor-backend
  * 
  * @author greau.maxime@gmail.com
  * 
  */
-@ServerEndpoint(value = "/backend/{adoc-id}",
+@ServerEndpoint(value = "/realtime/{projectId}",
 				decoders = { MessageDecoder.class },
 				encoders = { AsciidocMessageEncoder.class, OutputMessageEncoder.class,
 							NotificationMessageEncoder.class })
-public class BackendServerEndpoint {
+public class RealtimeEndpoint {
 
-	private static final Logger logger = Logger.getLogger("BackendServerEndpoint");
+	private static final Logger logger = Logger.getLogger("RealtimeEndpoint");
 
 	/** All open WebSocket sessions */
 	static Set<Session> peers = Collections
@@ -180,7 +175,7 @@ public class BackendServerEndpoint {
 	 */
 	@OnMessage
 	public void message(final Session session, AsciidocMessage msg,
-			@PathParam("adoc-id") String adocId) {
+						@PathParam("projectId") String adocId) {
 		logger.log(Level.INFO, "Received: Asciidoc source from - {0}", msg);
 
 		// check if the user had already send a version for this doc
@@ -227,7 +222,7 @@ public class BackendServerEndpoint {
 
 	@OnOpen
 	public void openConnection(Session session,
-			@PathParam("adoc-id") String adocId) {
+							   @PathParam("projectId") String adocId) {
 		logger.log(Level.INFO, "Session ID : " + session.getId()
 				+ " - Connection opened for doc : " + adocId);
 		session.getUserProperties().put(adocId, true);
@@ -252,7 +247,7 @@ public class BackendServerEndpoint {
 	 */
 	@OnClose
 	public void closedConnection(Session session,
-			@PathParam("adoc-id") String adocId) {
+								 @PathParam("projectId") String adocId) {
 		if (session.getUserProperties().containsKey("writer")) {
 			handleWriters(adocId, false, (String) session.getUserProperties()
 					.get("writer"));
