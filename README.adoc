@@ -2,6 +2,12 @@
 
 Backend : convert AsciiDoc to HTML5, PDF, EPUB3...
 
+== Overview
+
+[[backend]]
+.Architecture Overview
+image::doc/images/architecture_overview_backend.png[Architecture overview, 300]
+
 
 == How to test it ?
 
