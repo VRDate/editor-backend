@@ -46,7 +46,7 @@ public class AsciidoctorProcessor {
     /**
      * Register a post processor depends on the backend.
      *
-     * @param backend
+     * @param converter
      */
 	private void addPostProcessor(Converter converter) {
 		if (converter.equals(Converter.html5)) {
@@ -76,7 +76,7 @@ public class AsciidoctorProcessor {
 				.safe(SafeMode.UNSAFE).headerFooter(true);
                 //.inPlace(true);
         if (outputFilename != null) {
-			opts.toFile(new File(outputDir + outputFilename + "." + converter.name().toString()));
+			opts.toFile(new File(outputDir + outputFilename + converter.getFilenameExtension()));
 		}
 		//For now the PDF converter can only write to a file
 		else if (outputFilename == null && converter == Converter.pdf) {
