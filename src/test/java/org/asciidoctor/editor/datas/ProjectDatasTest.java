@@ -1,6 +1,7 @@
 package org.asciidoctor.editor.datas;
 
 import org.asciidoctor.editor.DeploymentInContainer;
+import org.asciidoctor.editor.processor.Converter;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.arquillian.junit.InSequence;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class ProjectDatasTest extends DeploymentInContainer {
         String projectID = "project:123";
         String fileID = "file:123";
 
-        datas.listenToAsciiDocContent(projectID, fileID);
+        datas.listenToAsciiDocContent(projectID, fileID, Converter.html5);
         assertTrue(true);
     }
 
