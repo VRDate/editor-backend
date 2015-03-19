@@ -1,31 +1,19 @@
 package org.asciidoctor.editor.datas;
 
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.logging.Logger;
-
-import javax.annotation.PostConstruct;
-import javax.ejb.Stateless;
-import javax.inject.Inject;
-
-import org.asciidoctor.Asciidoctor;
-import org.asciidoctor.SafeMode;
-import org.asciidoctor.editor.StarterService;
-
-import com.firebase.client.AuthData;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import org.asciidoctor.editor.core.AsciidoctorProcessor;
-import org.asciidoctor.editor.core.IOUtils;
+import org.asciidoctor.Asciidoctor;
+import org.asciidoctor.editor.processor.AsciidoctorProcessor;
+import org.asciidoctor.editor.processor.Converter;
 
-import static org.asciidoctor.OptionsBuilder.options;
+import javax.ejb.Stateless;
+import javax.inject.Inject;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Logger;
 
 @Stateless
 public class ProjectDatas {
@@ -40,7 +28,14 @@ public class ProjectDatas {
     private AsciidoctorProcessor asciidoctor;
 
 
-	public void listenToAsciiDocContent(String projectID, String fileID){
+    /**
+     * Add a listener to a file
+     *
+     * @param projectID
+     * @param fileID    ID of the file to li
+     * @param backend
+     */
+    public void listenToAsciiDocContent(final String projectID, final String fileID, final Converter converter) {
 
         final Map<String, Object> parameters = new HashMap<>();
         parameters.put(Asciidoctor.STRUCTURE_MAX_LEVEL, 2);
@@ -50,14 +45,14 @@ public class ProjectDatas {
 
             @Override
             public void onDataChange(DataSnapshot arg0) {
-                logger.info("data changed :" + arg0);
+                logger.info("datas changed..." );
 
                 try {
-                    asciidoctor.convertToBinaryDocument(arg0.child("asciidoc").getValue().toString(), "pdf", null, "all",
+                    asciidoctor.convertToBinaryDocument(arg0.child("asciidoc").getValue().toString(), converter, null, "all",
                             arg0.child("name").getValue().toString());
-                    arg0.getRef().child("pdf").setValue("ok");
+
                 } catch (IOException e) {
-                    arg0.getRef().child("pdf").setValue("ko");
+
                 }
             }
 
