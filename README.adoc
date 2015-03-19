@@ -5,12 +5,23 @@ Backend : convert AsciiDoc to HTML5, PDF, EPUB3...
 
 == How to test it ?
 
+. Prerequisite
+
+.. Have a Firebase account
+.. Active a secret key
+
 . Start the container
 
-  docker run  -p 8080:8080 -p 9990:9990 -e "editor.backend.firebase.secret=<SECRET>" -it asciidoctor/asciidoctorj-wildfly
+  docker run  -p 8080:8080 -p 9990:9990 -e "editor.backend.firebase.url=<FIREBASE_URL>" -e "editor.backend.firebase.secret=<FIREBASE_SECRET>" -it asciidoctor/asciidoctorj-wildfly
 
-. deploy the app
+  docker rm -f backend && docker run  -p 8080:8080 -p 9990:9990 -e "editor.backend.firebase.secret=Q5Ro9fnlklR95JScdSTuNEtg3Da8aSPobdyCs7fZ" --name backend -v /Users/mgreau/git/editor-project/deployment/docker:/tmp/documents -e "JAVA_OPTS=-server -Xms1024m -Xmx2056m -XX:MaxPermSize=512m -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Djava.awt.headless=true" -it asciidoctor/asciidoctorj-wildfly
 
-. listen to a file with API REST
+. Clone the project
+.. Build the WAR
+.. Deploy the app
 
-  http://192.168.99.100:8080/editor-backend/api/project/project:123/file/file:123/listener
+. Active a converter (PDF, HTML5...) to a file with the REST API
+
+  http://192.168.99.100:8080/editor-backend/api/project/project:123/file/file:123/listener/html5
+
+. Download the file
