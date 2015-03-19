@@ -13,6 +13,7 @@ import javax.inject.Inject;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 @Stateless
@@ -33,7 +34,7 @@ public class ProjectDatas {
      *
      * @param projectID
      * @param fileID    ID of the file to li
-     * @param backend
+     * @param converter
      */
     public void listenToAsciiDocContent(final String projectID, final String fileID, final Converter converter) {
 
@@ -52,7 +53,7 @@ public class ProjectDatas {
                             arg0.child("name").getValue().toString());
 
                 } catch (IOException e) {
-
+                    logger.log(Level.SEVERE,"Processing error.." , e);
                 }
             }
 
