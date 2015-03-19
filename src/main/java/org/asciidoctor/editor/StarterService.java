@@ -1,14 +1,13 @@
 package org.asciidoctor.editor;
 
 import com.firebase.client.Firebase;
-import org.asciidoctor.editor.core.AsciidoctorProcessor;
+import org.asciidoctor.editor.processor.AsciidoctorProcessor;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 import javax.ejb.Singleton;
 import javax.ejb.Startup;
 import javax.inject.Inject;
-import java.io.IOException;
 import java.util.logging.Logger;
 
 
@@ -26,8 +25,8 @@ public class StarterService {
 	private Firebase ref;
     
     @PostConstruct
-    public void init() throws IOException{
-    	logger.info("[BACKEND][START] Initializing Editor Backend...");
+    public void init() {
+        logger.info("[BACKEND][START] Initializing Editor Backend...");
         logger.info("Asciidoctor version : " + asciidoctor.getDelegate().asciidoctorVersion());
         logger.info("[BACKEND][START] Backend started.");
     }

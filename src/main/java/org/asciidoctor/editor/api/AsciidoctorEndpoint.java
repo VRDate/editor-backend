@@ -1,23 +1,16 @@
 package org.asciidoctor.editor.api;
 
+import org.asciidoctor.editor.processor.AsciidoctorProcessor;
+import org.asciidoctor.editor.processor.Converter;
+import org.asciidoctor.editor.realtime.messages.OutputMessage;
+
 import javax.ejb.Asynchronous;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
+import javax.ws.rs.*;
 import javax.ws.rs.container.AsyncResponse;
 import javax.ws.rs.container.Suspended;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
-
-import org.asciidoctor.editor.core.AsciidoctorProcessor;
-import org.asciidoctor.editor.realtime.messages.Message;
-import org.asciidoctor.editor.realtime.messages.OutputMessage;
-import org.asciidoctor.editor.realtime.messages.TypeFormat;
 
 @Path("/asciidoctor")
 @Stateless
@@ -33,8 +26,20 @@ public class AsciidoctorEndpoint {
 	@Asynchronous
 	public void convert(@PathParam("backend") String backend, 
 			String asciidocContent, @Suspended AsyncResponse response) {
-		OutputMessage out = new OutputMessage(TypeFormat.pdf);
-		out.setContent(processor.convertToDocument(asciidocContent, backend));	
+		Converter converter;
+		switch (backend) {
+			case "pdf":
+				converter = Converter.pdf;
+				break;
+			case "slide":
+				converter = Converter.slide;
+				break;
+			default:
+				converter = Converter.html5;
+		}
+
+		OutputMessage out = new OutputMessage(converter);
+		out.setContent(processor.convertToDocument(asciidocContent, converter));
 		response.resume(out);
 	}
 	
