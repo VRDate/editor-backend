@@ -1,12 +1,10 @@
 package org.asciidoctor.editor.realtime.messages.events;
 
-import javax.inject.Named;
+import org.asciidoctor.editor.realtime.messages.AsciidocMessage;
+
 import javax.validation.constraints.NotNull;
 import javax.websocket.Session;
 
-import org.asciidoctor.editor.realtime.messages.AsciidocMessage;
-
-@Named
 public class AsciidocMessageEvent {
 	
 	 Session session;
