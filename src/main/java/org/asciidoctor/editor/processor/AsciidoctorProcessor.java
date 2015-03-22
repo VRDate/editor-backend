@@ -133,7 +133,7 @@ public class AsciidoctorProcessor {
 
 			//if the content was written to the filesystem
 			if (output == null) {
-				Path p = FileSystems.getDefault().getPath(outputDir + fileName);
+				Path p = FileSystems.getDefault().getPath(outputDir + fileName + converter.getFilenameExtension());
 				output = p.toUri().toASCIIString();
 			}
 			logger.info("output dir : " + outputDir);
@@ -155,8 +155,8 @@ public class AsciidoctorProcessor {
 		convertToDocument(source, converter, templateDir, part, fileName);
 		Path p = null;
         if (fileName != null){
-            p =  FileSystems.getDefault().getPath(outputDir + fileName);
-        }
+			p = FileSystems.getDefault().getPath(outputDir + fileName + converter.getFilenameExtension());
+		}
         return Files.readAllBytes(p);
     }
 
