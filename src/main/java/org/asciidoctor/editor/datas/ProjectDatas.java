@@ -4,15 +4,15 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
-import org.asciidoctor.Asciidoctor;
-import org.asciidoctor.editor.processor.AsciidoctorProcessor;
 import org.asciidoctor.editor.processor.Converter;
+import org.asciidoctor.editor.processor.events.ProcessorEvent;
 
+import javax.ejb.Asynchronous;
+import javax.ejb.Lock;
+import javax.ejb.LockType;
 import javax.ejb.Stateless;
+import javax.enterprise.event.Event;
 import javax.inject.Inject;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,7 +26,7 @@ public class ProjectDatas {
 	private Firebase ref;
 
     @Inject
-    private AsciidoctorProcessor asciidoctor;
+    Event<ProcessorEvent> processor;
 
 
     /**
@@ -36,36 +36,32 @@ public class ProjectDatas {
      * @param fileID    ID of the file to li
      * @param converter
      */
+    @Asynchronous
+    @Lock(LockType.READ)
     public void listenToAsciiDocContent(final String projectID, final String fileID, final Converter converter) {
 
-        final Map<String, Object> parameters = new HashMap<>();
-        parameters.put(Asciidoctor.STRUCTURE_MAX_LEVEL, 2);
-
         ref.child("projects").child(projectID)
-                .child("files").child(fileID).addValueEventListener(new ValueEventListener() {
+                .child("files").child(fileID).child("asciidoc").addValueEventListener(new ValueEventListener() {
 
             @Override
             public void onDataChange(DataSnapshot arg0) {
-                logger.info("datas changed..." );
+                logger.info("Datas changed (fire event)...");
 
                 try {
-                    asciidoctor.convertToBinaryDocument(arg0.child("asciidoc").getValue().toString(), converter, null, "all",
-                            arg0.child("name").getValue().toString());
+                    processor.fire(new ProcessorEvent(arg0.getValue().toString(), converter,
+                            fileID));
 
-                } catch (IOException e) {
-                    logger.log(Level.SEVERE,"Processing error.." , e);
+                } catch (Exception e) {
+                    logger.log(Level.SEVERE, "Processing error..", e);
                 }
             }
 
             @Override
             public void onCancelled(FirebaseError arg0) {
-                logger.info("cancel changed :" + arg0);
+                logger.info("Stop the listener :" + arg0);
 
             }
         });
 
 	}
-
-
-
 }
