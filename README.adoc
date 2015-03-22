@@ -29,7 +29,8 @@ image::doc/images/architecture_overview_backend.png[Architecture overview, 600]
 
   docker rm -f backend && docker run  -p 8080:8080 -p 9990:9990 --name backend -e "editor.backend.firebase.url=<FIREBASE_URL>" -e "editor.backend.firebase.secret=<FIREBASE_SECRET>" -it editor-backend
   example :
-  docker rm -f backend && docker run  -p 8080:8080 -p 9990:9990 --name backend -e "editor.backend.firebase.secret=Q5Ro9fnlklR95JScdSTuNEtg3Da8aSPobdyCs7fZ" -it editor-backend
+  docker rm -f backend
+  docker run  -p 8080:8080 -p 9990:9990 --name backend -e "editor.backend.firebase.secret=Q5Ro9fnlklR95JScdSTuNEtg3Da8aSPobdyCs7fZ" -it editor-backend
 
 . Build the WAR
 . Deploy the app
