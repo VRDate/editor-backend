@@ -6,8 +6,9 @@ package org.asciidoctor.editor.processor.extension.slides;
 public final class DZSlidesUtils {
 
 
+
     public static final String getTemplateDir(){
-        return System.getProperty("jboss.server.data.dir")+"/asciidoctor-backends/slim/dzslides";
+        return "/slim/dzslides";
     }
 
 

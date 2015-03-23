@@ -89,7 +89,7 @@ public class AsciidocMessageConsumer {
 		
 		long start = System.currentTimeMillis();
 		try {
-			html.setContent(processor.convertToDocument(event.msg.getAdocSource(), Converter.slide,
+			html.setContent(processor.convertToDocument(event.msg.getAdocSource(), Converter.dzslides,
 					new java.io.File(templateDir), event.msg.getPart(), null));
 			html.setTimeToRender(System.currentTimeMillis() - start);
 		} catch (RuntimeException rEx) {

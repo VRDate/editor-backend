@@ -8,7 +8,7 @@ import org.jsoup.nodes.Element;
 import java.util.Map;
 
 /**
- * DZSlides headers for one slide.
+ * DZSlides headers for one dzslides.
  * 
  * <head> 
   <meta charset="UTF-8"> 

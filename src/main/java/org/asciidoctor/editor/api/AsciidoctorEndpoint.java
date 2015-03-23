@@ -31,8 +31,8 @@ public class AsciidoctorEndpoint {
 			case "pdf":
 				converter = Converter.pdf;
 				break;
-			case "slide":
-				converter = Converter.slide;
+			case "dzslides":
+				converter = Converter.dzslides;
 				break;
 			default:
 				converter = Converter.html5;
