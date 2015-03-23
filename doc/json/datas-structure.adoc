@@ -9,15 +9,19 @@
 ----
 {
    "projects" : {
-     "project:<ID>" : {
-       "id" : "project:<ID>",
+     "project:<UUID>" : {
+       "id" : "project:<UUID>",
        "name" : "My AsciiDoc project",
        "owner" : "github:501525",
        "users" : {
-         "github:501525" : "mgreau"
+         "github:501525" : "mgreau",
+         "github:602524" : "scooper",
+         "github:512451" : "jbauer",
        },
        "settings" : {
-           "backup_auto" : "true",
+           "save_auto" : "true",
+           "save_interval" : "120",
+           "backend_url" : "http://backend.adoc-editor.io/project-<uuid>"
            "html_url" : "http://hosting.adoc-editor.io/project:<uuid>/html/",
            "pdf_url" : "http://hosting.adoc-editor.io/project:<uuid>/pdf/",
            "asciidoctor" : {
@@ -31,18 +35,26 @@
            }
        },
        "files" : {
-         "file:<ID>" : {
-           "asciidoc" : "[preface]\n== Preface\n\nThis is a file to test the app. +\nfrom my mobile !\n\n=== Title 3\n\nOk commit ?\n\nTests backend listener\n\n\n\nq",
-           "github" : {
+         "file:<UUID>" : {
+         "github" : {
              "path" : "ch_preface.asciidoc",
              "repo" : "wfly-bk",
              "sha" : "46684740d61ed2cea5556cf0f4c9e7e802c0b780"
            },
-           "id" : "file:<ID>",
+           "id" : "file:<UUID>",
            "name" : "ch_preface.asciidoc",
            "provider" : "github",
+           "collaborate" : {
+               "active" : true,
+               "asciidoc" : "[preface]\n== Preface\n\nThis is a file to test the app. +\nfrom my mobile !\n\n=== Title 3\n\nOk commit ?\n\nTests backend listener\n\n\n\nq",
+               "users" : {
+                      "github:501525" : "green",
+                      "github:602524" : "red"
+                 }
+           },
            "comments" : {
-                "comment-<ID>" : {
+                "comment-<UUID>" : {
+                     "revision" : "revision-<FIREBASE_AUTO_ID>"
                      "asciidoc" : "comment 1",
                      "approved" : "false",
                      "lines" : "75-80",
@@ -52,39 +64,28 @@
                 }
 		   },
            "revisions" : {
-                "revision-<ID>" : {
+                "revision-<FIREBASE_AUTO_ID>" : {
                    "asciidoc" : "[preface]\n== Preface\n\nThis is a file..",
                      "label" : "1.0",
-                     "timestamp" : 454545,
+                     "timestamp" : 12569537329,
+                     "pdf_available" : "true",
+                     "html5_available" : "true,
                      "users" : {
                         "github:501525" : "mgreau"
                      }
-                 "revision-<ID>" : {
+                 "revision-<FIREBASE_AUTO_ID>" : {
                      "asciidoc" : "[preface]\n== Preface\n\nThis is a file..",
-                     "label" : "1.0",
-                     "timestamp" : 454545,
+                     "label" : "auto",
+                     "timestamp" : 12569587929,
+                     "pdf_available" : "true",
+                     "html5_available" : "true,
                      "users" : {
                         "github:501525" : "mgreau"
                      }
                 }
            }
-         },
-         "file:<ID>" : {
-           "asciidoc" : " ",
-           "id" : "file:<ID>",
-           "name" : "my-sample.adoc"
-         },
-         "file:<ID>" : {
-           "asciidoc" : "= adoc-editor.io\nMaxime GREAU <https://github.com/mgreau[@mgreau]>\n\nimport from github and commIt !\nOK\n",
-           "github" : {
-             "path" : "README.adoc",
-             "repo" : "adoc-editor.io",
-             "sha" : "94786ad3ed31f6860b9eaf2a149605edd6fd7a5f"
-           },
-           "id" : "file:<ID>",
-           "name" : "README.adoc",
-           "provider" : "github"
          }
+
        }
      }
 }
