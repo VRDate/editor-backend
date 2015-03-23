@@ -28,7 +28,6 @@ public class ProjectDatas {
     @Inject
     Event<ProcessorEvent> processor;
 
-
     /**
      * Add a listener to a file
      *
@@ -48,8 +47,9 @@ public class ProjectDatas {
                 logger.info("Datas changed (fire event)...");
 
                 try {
-                    processor.fire(new ProcessorEvent(arg0.getValue().toString(), converter,
-                            fileID));
+                    final ProcessorEvent pEvent = new ProcessorEvent(arg0.getValue().toString(), converter,
+                            fileID);
+                    processor.fire(pEvent);
 
                 } catch (Exception e) {
                     logger.log(Level.SEVERE, "Processing error..", e);

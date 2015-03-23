@@ -26,8 +26,8 @@ public class ProjectEndpoint {
             case "pdf":
                 datas.listenToAsciiDocContent(projectId, fileId, Converter.pdf);
                 break;
-            case "slide":
-                datas.listenToAsciiDocContent(projectId, fileId, Converter.slide);
+            case "dzslides":
+                datas.listenToAsciiDocContent(projectId, fileId, Converter.dzslides);
                 break;
             case "html5":
                 datas.listenToAsciiDocContent(projectId, fileId, Converter.html5);

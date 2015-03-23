@@ -54,7 +54,7 @@ public class AsciidoctorProcessor {
                     .javaExtensionRegistry();
             javaExtensionRegistry
                     .postprocessor(IFrameAnchorPostProcessor.class);
-		} else if (converter.equals(Converter.slide)) {
+		} else if (converter.equals(Converter.dzslides)) {
 			JavaExtensionRegistry javaExtensionRegistry = this.asciidoctor
                     .javaExtensionRegistry();
             javaExtensionRegistry
@@ -119,7 +119,7 @@ public class AsciidoctorProcessor {
 			if (part != null && !"all".equals(part)){
 				StructuredDocument document = asciidoctor.readDocumentStructure(
 						source, parameters);
-				if (converter.equals(Converter.slide) && document != null && document.getPartById(part) != null) {
+				if (converter.equals(Converter.dzslides) && document != null && document.getPartById(part) != null) {
 					parameters.put(Asciidoctor.STRUCTURE_MAX_LEVEL, 2);
 					ContentPart p = document.getPartById(part);
 					output = DZSlidesUtils.getHeaderForSlides() + "<body><"+ p.getContext() +" class=\""+ p.getRole() + "\">"+ "<h2>" + p.getTitle() + "</h2>" + p.getContent() + "</"+ p.getContext() +">" + DZSlidesUtils.getBodyFooterForSlides() +"</body>";
