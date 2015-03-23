@@ -12,10 +12,16 @@ public class ProcessorEvent {
 
     Converter converter;
 
+    String templateDir;
+
     public ProcessorEvent(@NotNull String adoc, @NotNull Converter c, @NotNull String filename) {
         this.asciidoc = adoc;
         this.converter = c;
         this.filename = filename;
+    }
+
+    public void setTemplateDir(String dir) {
+        templateDir = dir;
     }
 
 
